@@ -10,7 +10,7 @@ import org.apache.pdfbox.text.PDFTextStripper;
 public class ReadingPDF {
 
 	   public static void main(String args[]) throws IOException {
-		      File file = new File("/Macintosh HD/用户/ruixue/桌面/未命名文件夹/个人简历/苗桐赫简历.pdf");
+		      File file = new File("/Users/ruixue/Desktop/Tonghe Miao Resume Final.pdf");
 		      PDDocument document = PDDocument.load(file);
 		      PDFTextStripper pdfStripper = new PDFTextStripper();
 		      String text = pdfStripper.getText(document);
