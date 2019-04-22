@@ -5,4 +5,4 @@ Step two: Follow the instruction of this Gui application.
 		Inside of the Gui application: 1) Select your PDF Resumes location.
 																	 2) Select what do you want to extract from the Resumes.
 																	 3) Showing the results.
-Step three: TBC..
+Step three: Creating your own database and pick the skills you want to choose.
