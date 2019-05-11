@@ -13,3 +13,4 @@ Jdbc: https://jdbc.postgresql.org/download.html
 PostgreSQL: https://www.tutorialspoint.com/postgresql/postgresql_java.htm
 # 3) Creating Database
 Creating your own database by using PostgreSQL
+<img src="Images/database.png" >
