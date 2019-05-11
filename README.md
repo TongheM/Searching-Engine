@@ -1,4 +1,4 @@
-# Searching-Engine
+# Searching-Engine - The Dynamic PDF Reader 
 This is a simple tutorial to show you how to extract information from PDF Resumes using java.
 Step one: Download the Eclipse and install PDFBOX for your Eclipse.
 Step two: Follow the instruction of this Gui application.
