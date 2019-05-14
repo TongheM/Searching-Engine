@@ -1,0 +1,148 @@
+package copy;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JTextArea;
+
+public class Gui {
+
+	private JFrame frame;
+	private JButton btnScan;
+	private JTextField showResult;
+	private JTextField pdfPath;
+	private JTextField querySkill;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Gui window = new Gui();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public Gui() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 507, 332);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		
+		btnScan = new JButton("scan & store");
+		//scan button, read PDF from file path and store into database;
+		btnScan.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String filePath;
+				String[] result;
+				ReadingPDF reader = new ReadingPDF();
+				try {
+					//Read PDF, output result
+					filePath = pdfPath.getText();
+					result = reader.read(filePath);
+					//show result in showResult window
+					String scanShow = "";
+					for (int i = 1; i< result.length; i++) {
+						scanShow = result[i]+ ";  "+ scanShow;
+					}
+					showResult.setText(scanShow);
+					
+					//store into skill database;
+					Database dblink = new Database();
+					for (int i = 1; i< result.length; i++) {
+						dblink.insertSkill(result[0],result[i]);
+					}
+					JOptionPane.showMessageDialog(null,"email and skills successully stored");
+				}catch(Exception error) {
+					JOptionPane.showMessageDialog(null,"PDF file not found");
+				}
+			}
+		});
+		btnScan.setBounds(394, 79, 107, 29);
+		frame.getContentPane().add(btnScan);		
+		showResult = new JTextField();
+		showResult.setBounds(155, 81, 239, 21);
+		frame.getContentPane().add(showResult);
+		showResult.setColumns(10);
+		
+		pdfPath = new JTextField();
+		pdfPath.setBounds(155, 49, 239, 26);
+		frame.getContentPane().add(pdfPath);
+		pdfPath.setColumns(10);
+		
+		JButton btnBrowse = new JButton("browse");
+		btnBrowse.setBounds(394, 49, 107, 29);
+		frame.getContentPane().add(btnBrowse);
+		
+		JLabel lblPdfPath = new JLabel("Input PDF path here:");
+		lblPdfPath.setBounds(16, 52, 138, 21);
+		frame.getContentPane().add(lblPdfPath);
+		
+		JLabel lblSkillPresentedIn = new JLabel("Skill presented:");
+		lblSkillPresentedIn.setBounds(47, 84, 107, 16);
+		frame.getContentPane().add(lblSkillPresentedIn);
+		
+		JLabel lblSkillScanner = new JLabel("Skill scan and query");
+		lblSkillScanner.setBounds(184, 21, 138, 16);
+		frame.getContentPane().add(lblSkillScanner);
+		
+		JTextArea emailWindow = new JTextArea();
+		emailWindow.setBounds(155, 205, 239, 80);
+		frame.getContentPane().add(emailWindow);
+		
+		JButton btnSearch = new JButton("search");
+		btnSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//when press search, getText from querySkill box, search database, return emailList
+				String skillToSearch = querySkill.getText();
+				Database dblink = new Database();
+				String[] emailList = dblink.skillQuery(skillToSearch);
+				String emailShow = "";
+				for (int i = 0; i < emailList.length; i++) {
+					emailShow = emailList[i] + ";   " + emailShow;
+				}
+				emailWindow.setLineWrap(true);
+				emailWindow.setWrapStyleWord(true);
+				emailWindow.setText(emailShow);
+			}
+		});
+		btnSearch.setBounds(394, 162, 107, 29);
+		frame.getContentPane().add(btnSearch);
+		
+		JLabel lblQuerySkill = new JLabel("Query Skill:");
+		lblQuerySkill.setBounds(73, 167, 81, 16);
+		frame.getContentPane().add(lblQuerySkill);
+		
+		querySkill = new JTextField();
+		querySkill.setBounds(153, 162, 241, 26);
+		frame.getContentPane().add(querySkill);
+		querySkill.setColumns(10);
+		
+		JLabel lblEmailOfSkill = new JLabel("Email of Skill owner:");
+		lblEmailOfSkill.setBounds(16, 205, 138, 16);
+		frame.getContentPane().add(lblEmailOfSkill);
+	}
+}
