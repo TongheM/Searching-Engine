@@ -83,4 +83,4 @@ public class ReadingPDF {
     		}
     		return skillList;
     	}
-}
+} 
