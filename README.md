@@ -25,3 +25,7 @@ Creating your own database by using PostgreSQL
 <img src="Images/guiimage4.png" >
 ## 4.4)Show up the email of the owner with this skill in his/her resume.
 <img src="Images/guiimage5.png" >
+
+# Hope you enjoy using this tutorial, feel free to contact me with any kind of question.
+
+## tonghemiao@gwu.edu
